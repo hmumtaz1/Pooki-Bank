@@ -1,0 +1,60 @@
+<script src = "api-functions.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src = "global.js"></script> 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<style>
+    .dataClass{
+        border: solid 2px silver;
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+        align-items: center;
+        
+    }
+    .account_id{
+        text-align: center; 
+    }
+    #username{
+        text-align: center;        
+    }
+    .transferButton{
+        background-color: green;
+        color: white;
+        align-items: center;
+    }
+    .vertical-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<script>
+    let arr = getAccounts(current_user)
+    getUsername(current_user)
+</script>
+
+
+<br><br>
+<div id="username">
+</div>
+<br><br>
+
+<div class="container">
+ <div class="well col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+        <div class="row user-infos cyruxx">
+            <div id = "container-div" class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div>
+                    <h3 style="text-align: center;">User Accounts </h1>    
+                </div>   
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
