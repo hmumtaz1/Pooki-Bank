@@ -6,19 +6,31 @@
 <script src="global.js"></script>
 
 <script>
-    function addData(arr){
-        for(let i=0; i<arr.length; i++){
-            let parentDiv = document.createElement("div")
-            parentDiv.classList.add("dataClass")
-            let para = document.createElement("p")
-            let text = "Account ID: " + arr[i].id + "\n Amount: " + arr[i].amount +
-            "\n Date Created: " + arr[i].date + "\n Status: " + arr[i].status + "Type: " + arr[i].type
-            para.innerHTML = text
-            parentDiv.appendChild(para)
-            document.getElementById("container-div").appendChild(parentDiv)
-        } 
+    function transferAmountClick(account,amount){
+      if(account.length==0 || amount.length == 0){
+        let parentDiv = document.createElement("div")
+        let para = document.createElement("p")
+        para.innerHTML = "Please fill in missing fields"
+        parentDiv.appendChild(para)
+        document.getElementById("container").appendChild(parentDiv)
+      }
+      let balance = checkBalance(current_user)
+      let accountStatus = checkAccountStatus(account)
+      transferAmount(account,amount,current_user)
+      console.log(balance[0].amount)
+      console.log(accountStatus[0].status)
+      if(balance[0].amount < amount){
+        //show error
+      }
+      else if(accountStatus[0].status != "Active"){
+        //show error
+      }
+      else{
+        transferAmount(account,amount)
+      }
+
     }
-    let arr = getAccounts(current_user)
+
 </script>
 
 
@@ -29,19 +41,17 @@
 <br><br>
 
 <div class="container">
-    <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Account Number</label>
           <input type="Integer" class="form-control" id="account" placeholder="Enter account number">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Transfer Amount</label>
-          <input type="Integer" class="form-control" id="Integer" placeholder="Amount">
+          <input type="Integer" class="form-control" id="amount" placeholder="Amount">
         </div>
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Confirm</label>
         </div>
-        <button type="submit" class="btn btn-primary">Transfer</button>
-    </form>
+        <button onclick="transferAmountClick(account.value,amount.value)" class="btn btn-primary">Transfer</button>
 </div>

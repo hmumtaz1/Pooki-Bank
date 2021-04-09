@@ -206,7 +206,7 @@
   
   });
   
-  /* Check Account Exists */
+  /* Check Account Status */
   app.post('/api/check-account', function(req, res, next) {
   
     var account_id = req.body.account_id;
@@ -214,8 +214,12 @@
    // console.log(req.body);
      connection.query('SELECT STATUS FROM account WHERE id = ?', [account_id], function(error, results, fields) {
         if (results.length > 0) {
-          console.log(results[0].userid);
-          res.send(results);
+          if(results.status != "Active"){
+            res.send(false);  
+          }
+          else{
+            res.send(true);
+          }
         } else {
           res.send(false);
         }
@@ -227,12 +231,11 @@
   /* Check Balance */
   app.post('/api/check-balance', function(req, res, next) {
   
-    var user_id = req.body.user_id;
+    var account_id = req.body.account_id;
   
    // console.log(req.body);
-     connection.query('SELECT amount FROM `account` WHERE id = ?', [user_id], function(error, results, fields) {
+     connection.query('SELECT amount FROM `account` WHERE id = ?', [account_id], function(error, results, fields) {
         if (results.length > 0) {
-          console.log(results[0].userid);
           res.send(results);
         } else {
           res.send(false);
@@ -244,17 +247,25 @@
   /* Transfer Amount */
   app.post('/api/transfer', function(req, res, next) {
   
+    console.log(req.body);
     var account_id = req.body.account_id;
-    var amount = req.body.amount;
+    var sender_id = req.body.sender_id;
+    var amount = req.body.transfer_amount;
   
    // console.log(req.body);
      connection.query('UPDATE account SET amount = amount + ? WHERE id = ?', [amount, account_id], function(error, results, fields) {
-        if (results.length > 0) {
-          console.log(results[0].userid);
+      if (results.length > 0) {
+          console.log(results)
           res.send(results);
-        } else {
-          res.send(false);
-        }
+        } 
+      });
+      connection.query('UPDATE account SET amount = amount - ? WHERE id = ?', [amount, sender_id], function(error, results, fields) {
+        if (results.length > 0) {
+            console.log(results)
+            res.send(results);
+          } else {
+            res.send(false);
+          }
       });
   
   });
